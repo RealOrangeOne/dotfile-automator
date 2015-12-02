@@ -1,7 +1,8 @@
 import click
+from project.utils import get_config
 
-CONFIG_DIR = "~/.dfa.yml"
-
-@click.command('sync')
-def cli():
+@click.command('config')
+@click.argument('key')
+def cli(key):
+    print(get_config(key))
     pass

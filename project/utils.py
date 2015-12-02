@@ -14,16 +14,16 @@ def get_config_data(filename):
         config_file = open(filename)
         return load(config_file, Loader=Loader)
     except FileNotFoundError:
-        return None
+        return []
 
 
-DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'defaults.yml'))
+DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'config' ,'defaults.yml'))
 
 USER_CONFIG = get_config_data(os.path.expanduser(USER_CONFIG_DIR))
 
 def get_config(key):
-    if key in USER_CONFIG:
+    if USER_CONFIG and key in USER_CONFIG:
         return USER_CONFIG[key]
-    elif key in DEFAULT_CONFIG:
+    elif DEFAULT_CONFIG and key in DEFAULT_CONFIG:
         return DEFAULT_CONFIG[key]
     return None
