@@ -6,8 +6,10 @@ try:
 except ImportError:
     from yaml import Loader
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USER_CONFIG_DIR = "~/.dfa.yml"
+
 
 def get_config_data(filename):
     try:
@@ -17,9 +19,10 @@ def get_config_data(filename):
         return []
 
 
-DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'config' ,'defaults.yml'))
+DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'config', 'defaults.yml'))
 
 USER_CONFIG = get_config_data(os.path.expanduser(USER_CONFIG_DIR))
+
 
 def get_config(key):
     if USER_CONFIG and key in USER_CONFIG:
