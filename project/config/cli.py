@@ -22,7 +22,7 @@ def set(key, value):
     key = " ".join(key)
     status = config.set(key, value)
     if status == "SUCCESS":
-        print("Repo set to", repo)
+        print("{} set to {}".format(key, value))
         return 0
     elif status == "NO_KEY":
         print("Key {} not found".format(key))
