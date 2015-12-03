@@ -19,12 +19,12 @@ def get_config_data(filename):
         return []
 
 
-DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'config', 'defaults.yml'))
+DEFAULT_CONFIG = get_config_data(os.path.join(BASE_DIR, 'defaults.yml'))
 
 USER_CONFIG = get_config_data(os.path.expanduser(USER_CONFIG_DIR))
 
 
-def get_config(key):
+def get(key):
     if USER_CONFIG and key in USER_CONFIG:
         return USER_CONFIG[key]
     elif DEFAULT_CONFIG and key in DEFAULT_CONFIG:
