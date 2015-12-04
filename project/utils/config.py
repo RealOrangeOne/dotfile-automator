@@ -1,15 +1,11 @@
 import os
 from yaml import load, dump
+from .constants import DEFAULT_CONFIG_DIR, USER_CONFIG_DIR, REQUIRED_KEYS
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
     from yaml import Loader, Dumper
-
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USER_CONFIG_DIR = os.path.expanduser("~/.dfa.yml")
-DEFAULT_CONFIG_DIR = os.path.join(BASE_DIR, 'defaults.yml')
 
 
 def get_config_data(filename):
@@ -31,9 +27,8 @@ def write_user_config(refresh_after=False):
     except Exception as e:
         return e
 
+
 DEFAULT_CONFIG = get_config_data(DEFAULT_CONFIG_DIR)
-
-
 USER_CONFIG = get_config_data(os.path.expanduser(USER_CONFIG_DIR))
 
 
@@ -50,3 +45,10 @@ def set(key, value, refresh_after=False):
         return "NO_KEY"
     USER_CONFIG[key] = value
     return write_user_config(refresh_after)
+
+
+def has_basics():
+    for key in REQUIRED_KEYS:
+        if not get(key):
+            return False
+    return True
