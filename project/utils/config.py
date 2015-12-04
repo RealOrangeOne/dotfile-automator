@@ -18,6 +18,9 @@ def get_config_data(filename):
             return load(config_file, Loader=Loader)
     except FileNotFoundError:
         return {}
+    except Exception as e:
+        print("Error:", e)
+        return {}
 
 
 def write_user_config(refresh_after=False):
