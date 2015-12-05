@@ -1,20 +1,15 @@
 import os
-from . import config
-
-
-def has_repo_cloned():
-    return os.path.isdir('./data')
+from . import config, constants
 
 
 def clone_public_data():
-    exit_code = 0
-    exit_code = os.system("git clone -b master --single-branch {} data"
-        .format(config.get('public_repo')))
+    exit_code = os.system("git clone -b master --single-branch {} {}"
+        .format(config.get('public_repo'),
+        constants.PUBLIC_DATA_DIR))
     return exit_code
 
 
 def clone_private_data():
-    exit_code = 0
-    exit_code = os.system("git clone -b master --single-branch {} private_data"
-        .format(config.get('private_repo')))
+    exit_code = os.system("git clone -b master --single-branch {} {}"
+        .format(config.get('private_repo'), constants.PRIVATE_DATA_DIR))
     return exit_code

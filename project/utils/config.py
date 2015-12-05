@@ -1,6 +1,6 @@
 import os
 from yaml import load, dump
-from .constants import DEFAULT_CONFIG_DIR, USER_CONFIG_DIR, REQUIRED_KEYS
+from . import constants
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -21,15 +21,15 @@ def get_config_data(filename):
 
 def write_user_config(refresh_after=False):
     try:
-        with open(USER_CONFIG_DIR, 'w') as config_file:
+        with open(constants.USER_CONFIG_DIR, 'w') as config_file:
             dump(USER_CONFIG, config_file, indent=4, default_flow_style=False, Dumper=Dumper)
             return "SUCCESS"
     except Exception as e:
         return e
 
 
-DEFAULT_CONFIG = get_config_data(DEFAULT_CONFIG_DIR)
-USER_CONFIG = get_config_data(os.path.expanduser(USER_CONFIG_DIR))
+DEFAULT_CONFIG = get_config_data(constants.DEFAULT_CONFIG_DIR)
+USER_CONFIG = get_config_data(os.path.expanduser(constants.USER_CONFIG_DIR))
 
 
 def get(key):
@@ -48,7 +48,7 @@ def set(key, value, refresh_after=False):
 
 
 def has_basics():
-    for key in REQUIRED_KEYS:
+    for key in constants.REQUIRED_KEYS:
         if not get(key):
             return False
     return True
