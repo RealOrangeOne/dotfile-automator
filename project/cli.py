@@ -17,14 +17,11 @@ class DotFileCLI(click.MultiCommand):
         ns = {}
         if name not in self.list_commands(ctx):
             return
-        try:
-            fn = os.path.join(os.path.dirname(__file__), name + '/cli.py')
-            with open(fn) as f:
-                code = compile(f.read(), fn, 'exec')
-                eval(code, ns, ns)
-            return ns['cli']
-        except:
-            return
+        fn = os.path.join(os.path.dirname(__file__), name + '/cli.py')
+        with open(fn) as f:
+            code = compile(f.read(), fn, 'exec')
+            eval(code, ns, ns)
+        return ns['cli']
 
 cli = DotFileCLI(help='This tool\'s subcommands are loaded from a plugin folder dynamically.')
 
