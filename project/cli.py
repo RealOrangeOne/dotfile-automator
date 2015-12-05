@@ -11,7 +11,7 @@ logging.getLogger("requests").setLevel(logging.WARNING)
 class DotFileCLI(click.MultiCommand):
 
     def list_commands(self, ctx):
-        return ['config', 'sync']
+        return ['config', 'sync', 'export']
 
     def get_command(self, ctx, name):
         ns = {}
