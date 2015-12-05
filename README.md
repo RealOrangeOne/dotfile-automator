@@ -1,4 +1,4 @@
-# DotFile Automator
+# DotFile Automator [![Circle CI](https://circleci.com/gh/RealOrangeOne/dotfile-automator.svg?style=svg)](https://circleci.com/gh/RealOrangeOne/dotfile-automator)
 Command-Line tool for syncing dotfile-like files and configs between computers, using the power of Git.
 
 ## Installation
