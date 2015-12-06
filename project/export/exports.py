@@ -1,11 +1,11 @@
 import os, shutil
-from yaml import load, dump
+from yaml import load
 from project.utils import shell, constants
 
 try:
-    from yaml import CLoader as Loader, CDumper as Dumper
+    from yaml import CLoader as Loader
 except ImportError:
-    from yaml import Loader, Dumper
+    from yaml import Loader
 
 
 def atom():
