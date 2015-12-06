@@ -19,7 +19,7 @@ def show(key):
 @click.argument('key', nargs=1)
 @click.argument('value', nargs=-1)
 def set(key, value):
-    if type(value) == type(()):
+    if isinstance(value, tuple):
         value = " ".join(value)
     status = config.set(key, value)
     if status == "SUCCESS":
