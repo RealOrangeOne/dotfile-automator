@@ -15,14 +15,14 @@ def clone_public_data():
 
     out, error = shell.call(
         "git clone -b master --single-branch {} {}".format(
-        config.get('public_repo'),
-        constants.PUBLIC_DATA_DIR)
+            config.get('public_repo'),
+            constants.PUBLIC_DATA_DIR
+        )
     )
     return error
 
 
 def clone_private_data():
-    exit_code = 0
     if os.path.isdir(constants.PRIVATE_DATA_DIR):
         initial = os.getcwd()
         os.chdir(constants.PRIVATE_DATA_DIR)
@@ -33,9 +33,10 @@ def clone_private_data():
         return error
     else:
         out, error = shell.call(
-        "git clone -b master --single-branch {} {}".format(
-            config.get('private_repo'),
-            constants.PRIVATE_DATA_DIR)
+            "git clone -b master --single-branch {} {}".format(
+                config.get('private_repo'),
+                constants.PRIVATE_DATA_DIR
+            )
         )
     if error:
         return error
@@ -57,6 +58,7 @@ def go_to_data(subdir=''):
     path = os.path.join(constants.PUBLIC_DATA_DIR, subdir)
     os.chdir(path)
     return path
+
 
 def clean():
     shutil.rmtree(constants.PUBLIC_DATA_DIR)
