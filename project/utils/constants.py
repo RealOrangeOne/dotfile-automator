@@ -12,3 +12,5 @@ REQUIRED_KEYS = ['public_repo']
 # Data Directories
 PRIVATE_DATA_DIR = os.path.join(DATA_DIR, 'private_data')
 PUBLIC_DATA_DIR = os.path.join(DATA_DIR, 'public_data')
+
+ALL_DATA_DIR = os.path.join(DATA_DIR, 'all_data')

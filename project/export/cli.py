@@ -1,5 +1,6 @@
 import click
 from project.export import exports
+from project.utils import repos
 
 
 @click.command('export')
@@ -13,6 +14,7 @@ def cli(sections):
             if func.__name__ in sections:
                 functions.append(func)
     for func in functions:
+        repos.go_to_data()  # Reset data directory
         func()
     return 0
 

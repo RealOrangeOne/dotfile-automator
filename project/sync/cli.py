@@ -3,8 +3,8 @@ from project.utils import config, repos
 
 
 @click.command('sync')
-@click.option('--private', default=False)
-@click.option('--clean', default=False)
+@click.option('--private/--no-private', default=False, required=False)
+@click.option('--clean/--no-clean', default=False, required=False)
 def cli(private, clean):
     if clean:
         print("Cleaning")
@@ -20,4 +20,4 @@ def cli(private, clean):
             print("private repo not set")
             return 1
         error = repos.clone_private_data()
-    return int(error)
+    return 1 if error else 0

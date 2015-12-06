@@ -5,47 +5,50 @@ from . import config, constants, shell
 
 def clone_public_data():
     if os.path.isdir(constants.PUBLIC_DATA_DIR):
+        print("Updating public...")
         initial = os.getcwd()
         go_to_data()
         out, error = shell.call("git pull")
         os.chdir(initial)
-        if error:
-            print("Error:", out)
-        return error
-
-    out, error = shell.call(
-        "git clone -b master --single-branch {} {}".format(
-            config.get('public_repo'),
-            constants.PUBLIC_DATA_DIR
+        print(out)
+    else:
+        print("Downloading public data...")
+        out, error = shell.call(
+            "git clone -b master --single-branch {} {}".format(
+                config.get('public_repo'),
+                constants.PUBLIC_DATA_DIR
+            )
         )
+        print(out)
+    copy_tree(
+        constants.PUBLIC_DATA_DIR,
+        constants.ALL_DATA_DIR
     )
-    return error
 
 
 def clone_private_data():
     if os.path.isdir(constants.PRIVATE_DATA_DIR):
+        print("Updating private data...")
         initial = os.getcwd()
         os.chdir(constants.PRIVATE_DATA_DIR)
         out, error = shell.call("git pull")
         os.chdir(initial)
-        if error:
-            print("Error:", out)
+        print(out)
         return error
     else:
+        print("Downloading private data...")
         out, error = shell.call(
             "git clone -b master --single-branch {} {}".format(
                 config.get('private_repo'),
                 constants.PRIVATE_DATA_DIR
             )
         )
-    if error:
-        return error
+        print(out)
 
     copy_tree(
         constants.PRIVATE_DATA_DIR,
-        constants.PUBLIC_DATA_DIR
+        constants.ALL_DATA_DIR
     )
-    return error
 
 
 def has_data(data):
