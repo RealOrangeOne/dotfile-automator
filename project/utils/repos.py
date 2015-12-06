@@ -3,6 +3,13 @@ from . import config, constants
 
 
 def clone_public_data():
+    if os.path.isdir(constants.PUBLIC_DATA_DIR):
+        initial = os.getcwd()
+        go_to_data()
+        exit_code = os.system("git pull")
+        os.chdir(initial)
+        return exit_code
+
     exit_code = os.system("git clone -b master --single-branch {} {}"
         .format(config.get('public_repo'),
         constants.PUBLIC_DATA_DIR))
@@ -10,8 +17,15 @@ def clone_public_data():
 
 
 def clone_private_data():
-    exit_code = os.system("git clone -b master --single-branch {} {}"
-        .format(config.get('private_repo'), constants.PRIVATE_DATA_DIR))
+    exit_code = 0
+    if os.path.isdir(constants.PRIVATE_DATA_DIR):
+        initial = os.getcwd()
+        os.chdir(constants.PRIVATE_DATA_DIR)
+        exit_code = os.system("git pull")
+        os.chdir(initial)
+    else:
+        exit_code = os.system("git clone -b master --single-branch {} {}"
+            .format(config.get('private_repo'), constants.PRIVATE_DATA_DIR))
     if exit_code != 0:
         return exit_code
 
@@ -19,6 +33,8 @@ def clone_private_data():
         constants.PRIVATE_DATA_DIR,
         constants.PUBLIC_DATA_DIR
     )
+    return exit_code
+
 
 
 def has_data(data):

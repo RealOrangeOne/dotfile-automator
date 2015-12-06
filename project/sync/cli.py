@@ -8,9 +8,9 @@ def cli(private):
     if not config.has_basics():
         print("You do not have all the basic requirements set.")
         return 1
-    repos.clone_public_data()
-    if private:
+    exit_code = repos.clone_public_data()
+    if private and exit_code == 0:
         if not config.get('private_repo'):
             print("private repo not set")
-            return 0
-        repos.clone_public_data()
+        exit_code = repos.clone_public_data()
+    return exit_code
