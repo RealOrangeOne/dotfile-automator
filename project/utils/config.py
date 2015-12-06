@@ -45,6 +45,13 @@ def get(key):
     return None
 
 
+def get_all():
+    all_config = {}
+    for key, value in DEFAULT_CONFIG.items():
+        all_config[key] = get(key)
+    return all_config
+
+
 def set(key, value):
     if key not in DEFAULT_CONFIG:
         return "NO_KEY"

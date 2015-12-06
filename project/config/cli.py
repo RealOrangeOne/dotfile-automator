@@ -11,7 +11,11 @@ def cli():
 @click.argument('key', nargs=-1)
 def show(key):
     key = " ".join(key)
-    print(config.get(key))
+    if not key:
+        for key, value in config.get_all().items():
+            print("{}: {}".format(key, value))
+        return 0
+    print("'{}' is set to '{}'".format(key, config.get(key)))
     return 0
 
 
