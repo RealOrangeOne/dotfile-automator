@@ -19,7 +19,8 @@ def show(key):
 @click.argument('key', nargs=1)
 @click.argument('value', nargs=-1)
 def set(key, value):
-    key = " ".join(key)
+    if type(value) == type(()):
+        value = " ".join(value)
     status = config.set(key, value)
     if status == "SUCCESS":
         print("{} set to {}".format(key, value))

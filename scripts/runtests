@@ -4,7 +4,7 @@ set -e
 
 export PATH=env/bin:${PATH}
 
-flake8 project --ignore=E128,E501
+flake8 project --ignore=E128,E501,E401
 echo ">> Flake8 Tests Completed"
 
 if [ "$1" == "CI" ]; then

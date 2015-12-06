@@ -10,4 +10,7 @@ def cli(private):
         return 1
     repos.clone_public_data()
     if private:
+        if not config.get('private_repo'):
+            print("private repo not set")
+            return 0
         repos.clone_public_data()

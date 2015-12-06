@@ -11,7 +11,7 @@ except ImportError:
 def get_config_data(filename):
     try:
         with open(filename) as config_file:
-            return load(config_file, Loader=Loader)
+            return load(config_file, Loader=Loader) or {}
     except FileNotFoundError:
         return {}
     except Exception as e:
@@ -19,7 +19,7 @@ def get_config_data(filename):
         return {}
 
 
-def write_user_config(refresh_after=False):
+def write_user_config():
     try:
         with open(constants.USER_CONFIG_DIR, 'w') as config_file:
             dump(USER_CONFIG, config_file, indent=4, default_flow_style=False, Dumper=Dumper)
@@ -28,23 +28,28 @@ def write_user_config(refresh_after=False):
         return e
 
 
+# Create the config file if it doesnt exist already
+os.makedirs(constants.DATA_DIR, mode=0o755, exist_ok=True)
+open(constants.USER_CONFIG_DIR, 'a').close()
+
+
 DEFAULT_CONFIG = get_config_data(constants.DEFAULT_CONFIG_DIR)
-USER_CONFIG = get_config_data(os.path.expanduser(constants.USER_CONFIG_DIR))
+USER_CONFIG = get_config_data(constants.USER_CONFIG_DIR)
 
 
 def get(key):
-    if USER_CONFIG and key in USER_CONFIG:
+    if key in USER_CONFIG:
         return USER_CONFIG[key]
-    elif DEFAULT_CONFIG and key in DEFAULT_CONFIG:
+    elif key in DEFAULT_CONFIG:
         return DEFAULT_CONFIG[key]
     return None
 
 
-def set(key, value, refresh_after=False):
+def set(key, value):
     if key not in DEFAULT_CONFIG:
         return "NO_KEY"
     USER_CONFIG[key] = value
-    return write_user_config(refresh_after)
+    return write_user_config()
 
 
 def has_basics():
