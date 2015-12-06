@@ -1,4 +1,5 @@
 import os, shutil
+from distutils.dir_util import copy_tree
 from . import config, constants
 
 
@@ -29,12 +30,11 @@ def clone_private_data():
     if exit_code != 0:
         return exit_code
 
-    shutil.copytree(
+    copy_tree(
         constants.PRIVATE_DATA_DIR,
         constants.PUBLIC_DATA_DIR
     )
     return exit_code
-
 
 
 def has_data(data):

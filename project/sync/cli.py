@@ -12,5 +12,6 @@ def cli(private):
     if private and exit_code == 0:
         if not config.get('private_repo'):
             print("private repo not set")
-        exit_code = repos.clone_public_data()
+            return 1
+        exit_code = repos.clone_private_data()
     return exit_code
