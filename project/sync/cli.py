@@ -3,15 +3,21 @@ from project.utils import config, repos
 
 
 @click.command('sync')
-@click.option('--private/--no-private', default=False)
-def cli(private):
+@click.option('--private', default=False)
+@click.option('--clean', default=False)
+def cli(private, clean):
+    if clean:
+        print("Cleaning")
+        repos.clean()
     if not config.has_basics():
         print("You do not have all the basic requirements set.")
         return 1
-    exit_code = repos.clone_public_data()
-    if private and exit_code == 0:
+    error = repos.clone_public_data()
+    if error:
+        return 1
+    if private:
         if not config.get('private_repo'):
             print("private repo not set")
             return 1
-        exit_code = repos.clone_private_data()
-    return exit_code
+        error = repos.clone_private_data()
+    return int(error)
