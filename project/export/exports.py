@@ -27,15 +27,3 @@ def atom():
         os.path.join(constants.PUBLIC_DATA_DIR, 'atom', 'keymap.cson'),
         os.path.expanduser("~/.atom/keymap.cson")
     )
-
-
-def thing():
-    print("thing")
-
-
-def stuff():
-    print("stuff")
-
-
-def foo():
-    print("foo")
