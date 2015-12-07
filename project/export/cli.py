@@ -13,9 +13,18 @@ def cli(sections):
         for func in temp_functions:
             if func.__name__ in sections:
                 functions.append(func)
+    errors = []
     for func in functions:
-        repos.go_to_data()  # Reset data directory
-        func()
+        try:
+            repos.go_to_data()  # Reset data directory
+            func()
+        except Exception as e:
+            errors.append(e)
+
+    if errors:
+        print("Errors:")
+        for error in errors:
+            print(error)
     return 0
 
 
