@@ -4,7 +4,8 @@ setup (
 	name='dotfile-automator',
 	version='0.0',
 	install_requires=[
-		'click'
+		'click',
+        'PyYaml'
 	],
 	entry_points='''
 		[console_scripts]

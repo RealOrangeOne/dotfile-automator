@@ -5,10 +5,15 @@ Command-Line tool for syncing dotfile-like files and configs between computers, 
 ### Prerequisites
 * Python 3
 * Pip
+* Linux / OSX Operating System
 
 __Note__: If you would like the tool to run faster, install `libyml` through your preffered package manager. This will allow reading from the config file faster.
 ### The Installation Process
 Installation can be done using the `install.sh` script in the root of the repo. Simply run it, with or without the repo pre-cloned. This will run through the installation automatically.
+
+Alternatively, you can install it in 1 simple command. This allows you to install it in the best place for your OS, instead od wherever you run the `install.sh` script. The command below may need to be run as a superuser.
+
+    pip3 install git+https://github.com/RealOrangeOne/dotfile-automator.git
 
 ## Configuration
 Configuration is done using a simple config file in your home directory (`~/.dfa.yml`). This file is used to override the default values for your repo, in case it differs from what is used by default. If this file is not present, the tool can still be used fully.
