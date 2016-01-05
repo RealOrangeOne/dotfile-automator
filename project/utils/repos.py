@@ -58,7 +58,7 @@ def has_data(data):
 
 
 def go_to_data(subdir=''):
-    path = os.path.join(constants.PUBLIC_DATA_DIR, subdir)
+    path = os.path.join(constants.ALL_DATA_DIR, subdir)
     os.chdir(path)
     return path
 
